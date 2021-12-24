@@ -5,9 +5,12 @@
  */
 package Interfaces;
 
+import sources.AlgoritmoMatch;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -49,8 +52,6 @@ public class JFPantalla extends javax.swing.JFrame {
         jCBKMP = new javax.swing.JCheckBox();
         jCBBoyerMoore = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jTFNumPatrones = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTAPatronesABuscar = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
@@ -60,6 +61,8 @@ public class JFPantalla extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jBBuscar = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTAResumenResultados = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -182,24 +185,13 @@ public class JFPantalla extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel3.setText("Cantidad de Patrones a Buscar");
-
-        jTFNumPatrones.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTFNumPatronesKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTFNumPatronesKeyTyped(evt);
-            }
-        });
-
         jTAPatronesABuscar.setColumns(20);
         jTAPatronesABuscar.setRows(5);
         jScrollPane4.setViewportView(jTAPatronesABuscar);
 
         jLabel6.setText("Ingrese Patron(es)");
 
-        jLabel7.setText("(Si es más de 1 patrón separe por comas)");
+        jLabel7.setText("(Un patrón por linea)");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -211,23 +203,15 @@ public class JFPantalla extends javax.swing.JFrame {
                     .addComponent(jScrollPane4)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTFNumPatrones, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGap(0, 126, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTFNumPatrones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
@@ -244,10 +228,19 @@ public class JFPantalla extends javax.swing.JFrame {
         jLabel4.setText("Resultados");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("Algortimo");
+        jLabel5.setText("Algortimos");
 
         jBBuscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBBuscar.setText("BUSCAR");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
+
+        jTAResumenResultados.setColumns(20);
+        jTAResumenResultados.setRows(5);
+        jScrollPane5.setViewportView(jTAResumenResultados);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,23 +250,26 @@ public class JFPantalla extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jTPIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(163, 163, 163)
                                 .addComponent(jBBuscar))
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
                         .addComponent(jLabel4)
-                        .addGap(129, 129, 129))))
+                        .addGap(129, 129, 129))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,18 +279,23 @@ public class JFPantalla extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addComponent(jBBuscar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTPIngresar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTPIngresar)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
@@ -315,7 +316,7 @@ public class JFPantalla extends javax.swing.JFrame {
             this.jTAArchivo.setText(texto);
             JOptionPane.showMessageDialog(null,"Archivo leido correctamente");
         } catch (Exception e) {
-            
+            System.out.println("No se ha accesido al archivo");
         }
     }//GEN-LAST:event_jBSeleccionarArchivoActionPerformed
 
@@ -323,17 +324,60 @@ public class JFPantalla extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCBFuerzaBrutaActionPerformed
 
-    private void jTFNumPatronesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNumPatronesKeyPressed
-        
-    }//GEN-LAST:event_jTFNumPatronesKeyPressed
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
 
-    private void jTFNumPatronesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFNumPatronesKeyTyped
-        char texto =evt.getKeyChar(); //Capturamos el evento
-        if(Character.isLetter(texto)){
-            JOptionPane.showMessageDialog(null,"Por favor solo ingrese numeros");
-            evt.consume();
+        String []patrones = jTAPatronesABuscar.getText().split("\n");
+        if(jTPIngresar.getSelectedIndex() == 0) {
+            String []lineas = jTAIngresarTexto.getText().split("\n");
+            //Si esta en el 1er tab: ingresar texto                      
+            if(jCBFuerzaBruta.isSelected()) {
+                jTAResultados.setText(jTAResultados.getText() + "Algoritmo Fuerza Bruta\n");
+                long tiempoTotal = 0;
+                for (String patron : patrones) {
+                    String resultadosBF = "";                      
+                    int numeroLinea = 0;
+                    for(String linea : lineas) {
+                        numeroLinea++;
+                        long tiempoInicial = System.nanoTime();
+                        resultadosBF += AlgoritmoMatch.bruteForceManyMatches(linea, patron,numeroLinea);
+                        tiempoTotal += System.nanoTime() - tiempoInicial;
+                    }
+                    String coincidencias[] = resultadosBF.split("\n");
+                    int numeroCoincidencia = 0;
+                    jTAResultados.setText(jTAResultados.getText() + "Patron: " + patron + "\n");
+                    for(String coincidencia : coincidencias) {
+                        numeroCoincidencia++;
+                        jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");                        
+                    }
+                }
+                jTAResumenResultados.setText(jTAResumenResultados.getText() + "\nFuerza Bruta Tiempo total: " + tiempoTotal/1e6 + "ms");                 
+            }
+            if(jCBKMP.isSelected()) {
+                jTAResultados.setText(jTAResultados.getText() + "Algoritmo KMP\n");
+                long tiempoTotal = 0;
+                for (String patron : patrones) {
+                    String resultadosKMP = "";                      
+                    int numeroLinea = 0;
+                    for(String linea : lineas) {
+                        numeroLinea++;
+                        long tiempoInicial = System.nanoTime();
+                        resultadosKMP += AlgoritmoMatch.matcherKMP(linea, patron,numeroLinea);
+                        tiempoTotal += System.nanoTime() - tiempoInicial;
+                    }
+                    String coincidencias[] = resultadosKMP.split("\n");
+                    int numeroCoincidencia = 0;
+                    jTAResultados.setText(jTAResultados.getText() + "Patron: " + patron + "\n");
+                    for(String coincidencia : coincidencias) {
+                        numeroCoincidencia++;
+                        jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");                        
+                    }
+                }
+                jTAResumenResultados.setText(jTAResumenResultados.getText() + "\nKMP Tiempo total: " + tiempoTotal/1e6 + "ms");                 
+            }              
+        } else if(jTPIngresar.getSelectedIndex() == 1){
+            //Si esta en el 2do tab: Ingresar archivo
         }
-    }//GEN-LAST:event_jTFNumPatronesKeyTyped
+    }//GEN-LAST:event_jBBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,7 +422,6 @@ public class JFPantalla extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCBKMP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -391,11 +434,12 @@ public class JFPantalla extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTAArchivo;
     private javax.swing.JTextArea jTAIngresarTexto;
     private javax.swing.JTextArea jTAPatronesABuscar;
     private javax.swing.JTextArea jTAResultados;
-    private javax.swing.JTextField jTFNumPatrones;
+    private javax.swing.JTextArea jTAResumenResultados;
     private javax.swing.JTabbedPane jTPIngresar;
     // End of variables declaration//GEN-END:variables
 }
