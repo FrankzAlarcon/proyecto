@@ -53,7 +53,7 @@ public class AlgoritmoMatch {
         return fail;
     }
 
-    public static String matcherKMP(String texto, String patron, int linea){
+    public static String KMPmatcher(String texto, String patron, int linea){
         int longTexto = texto.length();
         int longPatron = patron.length();
         String result = "";
@@ -80,39 +80,46 @@ public class AlgoritmoMatch {
         return result;
     }
 
-    public static int matcherBoyerMoore(String texto, String patron) {
-        int posicionCoincidencia = -1;
+    public static String BoyerMooreManyMatches(String texto, String patron, int linea) {
+        String result = "";
         //Longitudes del patron y del texto
-        int n = texto.length();
-        int m = patron.length();
-        if (m == 0) {
-            return posicionCoincidencia;//-1;
+        int longTexto = texto.length();
+        int longPatron = patron.length();
+        if (longPatron == 0 || longPatron > longTexto) {
+            return result;//-1;
         }
         //Tabla D1
         Map<Character, Integer> vectorCaracteres = new HashMap<>();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < longTexto; i++) {
             vectorCaracteres.put(texto.charAt(i), -1);
         }
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < longPatron; i++) {
             vectorCaracteres.put(patron.charAt(i), i);
         }
 
-        int j = m - 1;
-        int k = m - 1;
-
-        while (j < n) {
-            if (texto.charAt(j) == patron.charAt(k)) {
-                if (k == 0) {
-                    posicionCoincidencia = j;
-                    return posicionCoincidencia;
+        int indexTexto = longPatron - 1;
+        int indexPatron = longPatron - 1;
+        //int indexTexto = 0;
+        boolean coincidencia = false;
+        while (indexTexto < longTexto) {
+            if (!coincidencia && texto.charAt(indexTexto) == patron.charAt(indexPatron)) {
+                if (indexPatron == 0) {
+                    result += " en la linea " + linea + ", en la posicion: " + indexTexto + " hasta " + (indexTexto + longPatron - 1) + "\n";
+                    indexPatron = longPatron;
+                    coincidencia = true;
                 }
-                j--;
-                k--;
+                indexTexto--;
+                indexPatron--;
             } else {
-                j += m - Math.min(k, 1 + vectorCaracteres.get(texto.charAt(j)));
-                k = m - 1;
+                if (coincidencia) {
+                    indexTexto += longPatron + 1;
+                    coincidencia = false;
+                } else {
+                    indexTexto += longPatron - Math.min(indexPatron, 1 + vectorCaracteres.get(texto.charAt(indexTexto)));
+                }
+                indexPatron = longPatron - 1;
             }
         }
-        return posicionCoincidencia;
+        return result;
     }
 }
