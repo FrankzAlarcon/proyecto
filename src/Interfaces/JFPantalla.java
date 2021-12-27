@@ -344,9 +344,9 @@ public class JFPantalla extends javax.swing.JFrame {
                         int numeroLinea = 0;
                         for (String linea : lineas) {
                             numeroLinea++;
-                            long tiempoInicial = System.currentTimeMillis();
+                            long tiempoInicial = System.nanoTime();
                             resultadosBF += AlgoritmoMatch.bruteForceManyMatches(linea, patron, numeroLinea);
-                            tiempoTotal += System.currentTimeMillis()- tiempoInicial;
+                            tiempoTotal += System.nanoTime() - tiempoInicial;
                         }
                         String coincidencias[] = resultadosBF.split("\n");
                         int numeroCoincidencia = 0;
@@ -356,7 +356,7 @@ public class JFPantalla extends javax.swing.JFrame {
                             jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
-                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Fuerza Bruta Tiempo total: " + tiempoTotal+ "ms\n");
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Fuerza Bruta Tiempo total: " + tiempoTotal / 1e6+ "ms\n");
                 }
                 if (jCBKMP.isSelected()) {
                     jTAResultados.setText(jTAResultados.getText() + "Algoritmo KMP\n");
@@ -366,9 +366,9 @@ public class JFPantalla extends javax.swing.JFrame {
                         int numeroLinea = 0;
                         for (String linea : lineas) {
                             numeroLinea++;
-                            long tiempoInicial = System.currentTimeMillis();
+                            long tiempoInicial = System.nanoTime();
                             resultadosKMP += AlgoritmoMatch.KMPmatcher(linea, patron, numeroLinea);
-                            tiempoTotal += System.currentTimeMillis()- tiempoInicial;
+                            tiempoTotal += System.nanoTime()- tiempoInicial;
                         }
                         String coincidencias[] = resultadosKMP.split("\n");
                         int numeroCoincidencia = 0;
@@ -378,7 +378,7 @@ public class JFPantalla extends javax.swing.JFrame {
                             jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
-                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "KMP Tiempo total: " + tiempoTotal + "ms\n");
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "KMP Tiempo total: " + tiempoTotal / 1e6 + "ms\n");
                 }
                 if (jCBBoyerMoore.isSelected()) {
                     jTAResultados.setText(jTAResultados.getText() + "Algoritmo Boyer Moore\n");
@@ -388,9 +388,9 @@ public class JFPantalla extends javax.swing.JFrame {
                         int numeroLinea = 0;
                         for (String linea : lineas) {
                             numeroLinea++;
-                            long tiempoInicial = System.currentTimeMillis();
+                            long tiempoInicial = System.nanoTime();
                             resultadosBM += AlgoritmoMatch.BoyerMooreManyMatches(linea, patron, numeroLinea);
-                            tiempoTotal += System.currentTimeMillis()- tiempoInicial;
+                            tiempoTotal += System.nanoTime()- tiempoInicial;
                         }
                         String coincidencias[] = resultadosBM.split("\n");
                         int numeroCoincidencia = 0;
@@ -400,7 +400,7 @@ public class JFPantalla extends javax.swing.JFrame {
                             jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
-                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "BM Tiempo total: " + tiempoTotal + "ms\n");
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "BM Tiempo total: " + tiempoTotal /1e6 + "ms\n");
                 }
 
                 /*else if(jTPIngresar.getSelectedIndex() == 1){
