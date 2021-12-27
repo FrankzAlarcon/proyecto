@@ -308,13 +308,13 @@ public class JFPantalla extends javax.swing.JFrame {
         try {
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
-            String texto="";
-            String linea="";
-            while( ((linea=br.readLine())!=null) ){
-                texto+=linea+"\n";
+            String texto = "";
+            String linea = "";
+            while (((linea = br.readLine()) != null)) {
+                texto += linea + "\n";
             }
             this.jTAArchivo.setText(texto);
-            JOptionPane.showMessageDialog(null,"Archivo leido correctamente");
+            JOptionPane.showMessageDialog(null, "Archivo leido correctamente");
         } catch (Exception e) {
             System.out.println("No se ha accesido al archivo");
         }
@@ -325,86 +325,100 @@ public class JFPantalla extends javax.swing.JFrame {
     }//GEN-LAST:event_jCBFuerzaBrutaActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-        if(!jTAPatronesABuscar.getText().isBlank()) {
-            String []patrones = jTAPatronesABuscar.getText().split("\n");
-            if(jTPIngresar.getSelectedIndex() == 0) {
-                String []lineas = jTAIngresarTexto.getText().split("\n");
+        try {
+            limpiarTextArea();
+            if (!jTAPatronesABuscar.getText().isBlank()) {
+                String[] patrones = jTAPatronesABuscar.getText().toLowerCase().split("\n");
+                String[] lineas = null;
+                if (jTPIngresar.getSelectedIndex() == 0) {
+                    lineas = jTAIngresarTexto.getText().toLowerCase().split("\n");
+                } else if (jTPIngresar.getSelectedIndex() == 1) {
+                    lineas = jTAArchivo.getText().toLowerCase().split("\n");
+                }
                 //Si esta en el 1er tab: ingresar texto                      
-                if(jCBFuerzaBruta.isSelected()) {
+                if (jCBFuerzaBruta.isSelected()) {
                     jTAResultados.setText(jTAResultados.getText() + "Algoritmo Fuerza Bruta\n");
                     long tiempoTotal = 0;
                     for (String patron : patrones) {
-                        String resultadosBF = "";                      
+                        String resultadosBF = "";
                         int numeroLinea = 0;
-                        for(String linea : lineas) {
+                        for (String linea : lineas) {
                             numeroLinea++;
-                            long tiempoInicial = System.nanoTime();
-                            resultadosBF += AlgoritmoMatch.bruteForceManyMatches(linea, patron,numeroLinea);
-                            tiempoTotal += System.nanoTime() - tiempoInicial;
+                            long tiempoInicial = System.currentTimeMillis();
+                            resultadosBF += AlgoritmoMatch.bruteForceManyMatches(linea, patron, numeroLinea);
+                            tiempoTotal += System.currentTimeMillis()- tiempoInicial;
                         }
                         String coincidencias[] = resultadosBF.split("\n");
                         int numeroCoincidencia = 0;
                         jTAResultados.setText(jTAResultados.getText() + "Patron: " + patron + "\n");
-                        for(String coincidencia : coincidencias) {
+                        for (String coincidencia : coincidencias) {
                             numeroCoincidencia++;
-                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");                        
+                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
-                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Fuerza Bruta Tiempo total: " + tiempoTotal/1e6 + "ms\n");                 
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Fuerza Bruta Tiempo total: " + tiempoTotal+ "ms\n");
                 }
-                if(jCBKMP.isSelected()) {
+                if (jCBKMP.isSelected()) {
                     jTAResultados.setText(jTAResultados.getText() + "Algoritmo KMP\n");
                     long tiempoTotal = 0;
                     for (String patron : patrones) {
-                        String resultadosKMP = "";                      
+                        String resultadosKMP = "";
                         int numeroLinea = 0;
-                        for(String linea : lineas) {
+                        for (String linea : lineas) {
                             numeroLinea++;
-                            long tiempoInicial = System.nanoTime();
-                            resultadosKMP += AlgoritmoMatch.KMPmatcher(linea, patron,numeroLinea);
-                            tiempoTotal += System.nanoTime() - tiempoInicial;
+                            long tiempoInicial = System.currentTimeMillis();
+                            resultadosKMP += AlgoritmoMatch.KMPmatcher(linea, patron, numeroLinea);
+                            tiempoTotal += System.currentTimeMillis()- tiempoInicial;
                         }
                         String coincidencias[] = resultadosKMP.split("\n");
                         int numeroCoincidencia = 0;
                         jTAResultados.setText(jTAResultados.getText() + "Patron: " + patron + "\n");
-                        for(String coincidencia : coincidencias) {
+                        for (String coincidencia : coincidencias) {
                             numeroCoincidencia++;
-                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");                        
+                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
-                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "KMP Tiempo total: " + tiempoTotal/1e6 + "ms\n");                 
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "KMP Tiempo total: " + tiempoTotal + "ms\n");
                 }
-                if(jCBBoyerMoore.isSelected()) {
+                if (jCBBoyerMoore.isSelected()) {
                     jTAResultados.setText(jTAResultados.getText() + "Algoritmo Boyer Moore\n");
                     long tiempoTotal = 0;
                     for (String patron : patrones) {
-                        String resultadosBM = "";                      
+                        String resultadosBM = "";
                         int numeroLinea = 0;
-                        for(String linea : lineas) {
+                        for (String linea : lineas) {
                             numeroLinea++;
-                            long tiempoInicial = System.nanoTime();
-                            resultadosBM += AlgoritmoMatch.BoyerMooreManyMatches(linea, patron,numeroLinea);
-                            tiempoTotal += System.nanoTime() - tiempoInicial;
+                            long tiempoInicial = System.currentTimeMillis();
+                            resultadosBM += AlgoritmoMatch.BoyerMooreManyMatches(linea, patron, numeroLinea);
+                            tiempoTotal += System.currentTimeMillis()- tiempoInicial;
                         }
                         String coincidencias[] = resultadosBM.split("\n");
                         int numeroCoincidencia = 0;
                         jTAResultados.setText(jTAResultados.getText() + "Patron: " + patron + "\n");
-                        for(String coincidencia : coincidencias) {
+                        for (String coincidencia : coincidencias) {
                             numeroCoincidencia++;
-                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");                        
+                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
-                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "BM Tiempo total: " + tiempoTotal/1e6 + "ms\n");                 
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "BM Tiempo total: " + tiempoTotal + "ms\n");
                 }
-            } else if(jTPIngresar.getSelectedIndex() == 1){
+
+                /*else if(jTPIngresar.getSelectedIndex() == 1){
                 //Si esta en el 2do tab: Ingresar archivo
                 //jhonattan inserta codigo aqui
-            }            
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Ingrese los patrones a buscar");
-        }        
+            }   ]*/
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Ingrese los patrones a buscar");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "A ocurrido un error, cargue nuevamente los datos.");
+        }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
+    private void limpiarTextArea() {
+        jTAResultados.setText(null);
+        jTAResumenResultados.setText(null);
+    }
     /**
      * @param args the command line arguments
      */
