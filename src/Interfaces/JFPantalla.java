@@ -9,6 +9,7 @@ import sources.AlgoritmoMatch;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -415,6 +416,10 @@ public class JFPantalla extends javax.swing.JFrame {
                     //si se ingresa un archivo externo
                     lineas = jTAArchivo.getText().toLowerCase().split("\n");
                 }
+                ArrayList<Long> tiemposXpatronesFB = new ArrayList<>();
+                ArrayList<Long> tiemposXpatronesKMP = new ArrayList<>();
+                ArrayList<Long> tiemposXpatronesBM = new ArrayList<>();
+                
                 if (jCBFuerzaBruta.isSelected()) {
                     //Si se desea buscar por algoritmo de Fuerza bruta
                     jTAFuerzaBruta.setText(jTAFuerzaBruta.getText() + "Algoritmo Fuerza Bruta\n");
@@ -423,6 +428,7 @@ public class JFPantalla extends javax.swing.JFrame {
                         //Realiza la busqueda de cada patron
                         String resultadosBF = "";
                         int numeroLinea = 0;
+                        long tiempoInicialPorPatron = System.nanoTime();
                         for (String linea : lineas) {
                             //Realiza la busqueda de un patron por fuerza bruta en cada linea.
                             numeroLinea++;
@@ -430,7 +436,8 @@ public class JFPantalla extends javax.swing.JFrame {
                             resultadosBF += AlgoritmoMatch.bruteForceManyMatches(linea, patron, numeroLinea);
                             tiempoTotal += System.nanoTime() - tiempoInicial;
                         }
-                        
+                        //Añade el tiempo por patron del algoritmo Fuerza Bruta
+                        tiemposXpatronesFB.add(System.nanoTime() - tiempoInicialPorPatron);
                         //Separa los resultados en lineas separadas
                         String coincidencias[] = resultadosBF.split("\n");
                         int numeroCoincidencia = 0;
@@ -452,6 +459,7 @@ public class JFPantalla extends javax.swing.JFrame {
                         //Se realiza la busqueda por patron
                         String resultadosKMP = "";
                         int numeroLinea = 0;
+                        long tiempoInicialPorPatron = System.nanoTime();
                         for (String linea : lineas) {
                             //Se realiza la busqueda de un patron en cada linea por KMP
                             numeroLinea++;
@@ -459,6 +467,8 @@ public class JFPantalla extends javax.swing.JFrame {
                             resultadosKMP += AlgoritmoMatch.KMPmatcher(linea, patron, numeroLinea);
                             tiempoTotal += System.nanoTime() - tiempoInicial;//Se realiza el calculo del tiempo
                         }
+                        //Añade el tiempo por patron del algoritmo KMP
+                        tiemposXpatronesKMP.add(System.nanoTime() - tiempoInicialPorPatron);
                         //Separa los resultados en lineas separadas
                         String coincidencias[] = resultadosKMP.split("\n");
                         int numeroCoincidencia = 0;
@@ -480,6 +490,7 @@ public class JFPantalla extends javax.swing.JFrame {
                         //Realiza las busquedas de todos los patrones
                         String resultadosBM = "";
                         int numeroLinea = 0;
+                        long tiempoInicialPorPatron = System.nanoTime();
                         for (String linea : lineas) {
                             //Realiza las busquedas del patron por algoritmo BooyerMoore
                             numeroLinea++;
@@ -487,6 +498,9 @@ public class JFPantalla extends javax.swing.JFrame {
                             resultadosBM += AlgoritmoMatch.BoyerMooreManyMatches(linea, patron, numeroLinea);
                             tiempoTotal += System.nanoTime() - tiempoInicial;//Realiza el calculo del tiempo total
                         }
+                        //Añade el tiempo por patron del algoritmo BM
+                        tiemposXpatronesBM.add(System.nanoTime() - tiempoInicialPorPatron);
+                        //Separa los resultados en lineas separadas
                         String coincidencias[] = resultadosBM.split("\n");
                         int numeroCoincidencia = 0;
                         jTABoyerMoore.setText(jTABoyerMoore.getText() + "Patron: " + patron + "\n");
@@ -499,10 +513,13 @@ public class JFPantalla extends javax.swing.JFrame {
                     //Muestra el tiempo total de la busqueda
                     jTAResumenResultados.setText(jTAResumenResultados.getText() + "BM Tiempo total: " + tiempoTotal / 1e6 + "ms\n");
                 }
+                //Muestra los mejores algoritmos por patron
+                mostrarMejorAlgoritmoPorPatron(tiemposXpatronesFB, tiemposXpatronesKMP, tiemposXpatronesBM, patrones);
                 if(!jCBFuerzaBruta.isSelected() && !jCBKMP.isSelected() && !jCBBoyerMoore.isSelected()) {
                     //Si no se ha seleccionado ningun algoritmo de busqueda
                     JOptionPane.showMessageDialog(rootPane, "Seleccione un algoritmo de busqueda");
                 }
+                
             } else {
                 //Si no se han ingresado patrones a buscar
                 JOptionPane.showMessageDialog(rootPane, "Ingrese los patrones a buscar");
@@ -518,6 +535,66 @@ public class JFPantalla extends javax.swing.JFrame {
         jTABoyerMoore.setText(null);
         jTA_KMP.setText(null);
         jTAResumenResultados.setText(null);
+    }
+    
+    private void mostrarMejorAlgoritmoPorPatron(ArrayList<Long> tiemposXpatronesFB, ArrayList<Long> tiemposXpatronesKMP, ArrayList<Long> tiemposXpatronesBM, String[] patrones) {
+        if(tiemposXpatronesBM.isEmpty() && tiemposXpatronesFB.isEmpty() && tiemposXpatronesKMP.isEmpty()) {
+            //Si no existe ningun tiempos por patrones no hace nada
+           
+        } else if (!tiemposXpatronesFB.isEmpty() && !tiemposXpatronesKMP.isEmpty() && tiemposXpatronesBM.isEmpty()){
+            //Si se seleccionó Fuerza bruta y KMP
+            for (int i = 0; i < tiemposXpatronesFB.size(); i++) {
+                //Se repite por cada patron
+                if(tiemposXpatronesFB.get(i) <= tiemposXpatronesKMP.get(i)) {
+                    //Si la busqueda por Fuerza bruta fue mejor que por KMP
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue Fuerza bruta con " + tiemposXpatronesFB.get(i)/1e6 + "ms\n");
+                } else {
+                    //Si la busqueda por KMP fue mejor que por Fuerza Bruta
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue KMP con " + tiemposXpatronesKMP.get(i)/1e6 + "ms\n");
+                }                
+            }
+        } else if (!tiemposXpatronesFB.isEmpty() && !tiemposXpatronesBM.isEmpty() && tiemposXpatronesKMP.isEmpty()) {
+            //Si se seleccionó Fuerza bruta y BM
+            for (int i = 0; i < tiemposXpatronesFB.size(); i++) {
+                //Se repite por cada patron
+                if(tiemposXpatronesFB.get(i) <= tiemposXpatronesBM.get(i)) {
+                    //Si la busqueda por Fuerza bruta fue mejor que por BM
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue Fuerza bruta con " + tiemposXpatronesFB.get(i)/1e6 + "ms\n");
+                } else {
+                    //Si la busqueda por BM fue mejor que por Fuerza Bruta
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue BM con " + tiemposXpatronesBM.get(i)/1e6 + "ms\n");
+                }                
+            }            
+        } else if (!tiemposXpatronesBM.isEmpty() && !tiemposXpatronesKMP.isEmpty() && tiemposXpatronesFB.isEmpty()) {
+            //Si se seleccionó BM y KMP
+            for (int i = 0; i < tiemposXpatronesKMP.size(); i++) {
+                //Se repite por cada patron
+                if(tiemposXpatronesBM.get(i) <= tiemposXpatronesKMP.get(i)) {
+                    //Si la busqueda por BoyerMoore fue mejor que por KMP
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue BooyerMoore con " + tiemposXpatronesBM.get(i)/1e6 + "ms\n");
+                } else {
+                    //Si la busqueda por KMP fue mejor que por BoyerMoore
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue KMP con " + tiemposXpatronesKMP.get(i)/1e6 + "ms\n");
+                }                
+            }            
+        } else if (!tiemposXpatronesFB.isEmpty() && !tiemposXpatronesKMP.isEmpty() && !tiemposXpatronesBM.isEmpty()) {
+            //Si se seleccionaron los 3 algorimos
+            for (int i = 0; i < tiemposXpatronesKMP.size(); i++) {
+                //Se repite por cada patron
+                if(tiemposXpatronesFB.get(i) <= tiemposXpatronesKMP.get(i) && tiemposXpatronesFB.get(i) <= tiemposXpatronesBM.get(i)) {
+                    //Si la busqueda por Fuerza fue mejor que las demas
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue Fuerza Bruta con " + tiemposXpatronesFB.get(i)/1e6 + "ms\n");
+                } else if (tiemposXpatronesKMP.get(i) <= tiemposXpatronesFB.get(i) && tiemposXpatronesKMP.get(i) <= tiemposXpatronesBM.get(i)) {
+                    //Si la busqueda por KMP fue mejor que las demas
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue KMP con " + tiemposXpatronesKMP.get(i)/1e6 + "ms\n");
+                } else if (tiemposXpatronesBM.get(i) <= tiemposXpatronesKMP.get(i) && tiemposXpatronesBM.get(i) <= tiemposXpatronesFB.get(i)) {
+                    //Si la busqueda por BM fue mejor que las demas
+                    jTAResumenResultados.setText(jTAResumenResultados.getText() + "Para el patron " + patrones[i] + " el mejor algortimo fue BM con " + tiemposXpatronesBM.get(i)/1e6 + "ms\n");
+                }             
+            }             
+        } else {
+            //Si se seleccionó solo un algoritmo, no hace nada
+        }
     }
 
     /**
