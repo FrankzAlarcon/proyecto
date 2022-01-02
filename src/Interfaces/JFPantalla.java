@@ -54,13 +54,21 @@ public class JFPantalla extends javax.swing.JFrame {
         jTAPatronesABuscar = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTAResultados = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jBBuscar = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTAResumenResultados = new javax.swing.JTextArea();
+        jTPMostarResultados = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTAFuerzaBruta = new javax.swing.JTextArea();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTA_KMP = new javax.swing.JTextArea();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTABoyerMoore = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,7 +107,7 @@ public class JFPantalla extends javax.swing.JFrame {
         jTPIngresar.addTab("Ingresar Texto", jPIngresarTexto);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Porfavor Seleccione el Archivo de la búsqueda: ");
+        jLabel2.setText("Porfavor Seleccione el Archivo de texto plano de la búsqueda: ");
 
         jBSeleccionarArchivo.setText("Seleccionar");
         jBSeleccionarArchivo.addActionListener(new java.awt.event.ActionListener() {
@@ -118,17 +126,20 @@ public class JFPantalla extends javax.swing.JFrame {
         jPIngresarArchivoLayout.setHorizontalGroup(
             jPIngresarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPIngresarArchivoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3)
+                .addGroup(jPIngresarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPIngresarArchivoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3))
+                    .addGroup(jPIngresarArchivoLayout.createSequentialGroup()
+                        .addGroup(jPIngresarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPIngresarArchivoLayout.createSequentialGroup()
+                                .addGap(135, 135, 135)
+                                .addComponent(jBSeleccionarArchivo))
+                            .addGroup(jPIngresarArchivoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel2)))
+                        .addGap(0, 3, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPIngresarArchivoLayout.createSequentialGroup()
-                .addGap(0, 55, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(45, 45, 45))
-            .addGroup(jPIngresarArchivoLayout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jBSeleccionarArchivo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPIngresarArchivoLayout.setVerticalGroup(
             jPIngresarArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,10 +229,6 @@ public class JFPantalla extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTAResultados.setColumns(20);
-        jTAResultados.setRows(5);
-        jScrollPane2.setViewportView(jTAResultados);
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Resultados");
 
@@ -240,6 +247,75 @@ public class JFPantalla extends javax.swing.JFrame {
         jTAResumenResultados.setRows(5);
         jScrollPane5.setViewportView(jTAResumenResultados);
 
+        jTAFuerzaBruta.setColumns(20);
+        jTAFuerzaBruta.setRows(5);
+        jScrollPane2.setViewportView(jTAFuerzaBruta);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTPMostarResultados.addTab("FB", jPanel3);
+
+        jTA_KMP.setColumns(20);
+        jTA_KMP.setRows(5);
+        jScrollPane6.setViewportView(jTA_KMP);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTPMostarResultados.addTab("KMP", jPanel4);
+
+        jTABoyerMoore.setColumns(20);
+        jTABoyerMoore.setRows(5);
+        jScrollPane7.setViewportView(jTABoyerMoore);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTPMostarResultados.addTab("BM", jPanel5);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -253,14 +329,16 @@ public class JFPantalla extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(163, 163, 163)
-                                .addComponent(jBBuscar))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBBuscar)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTPMostarResultados)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(129, 129, 129))
                     .addGroup(layout.createSequentialGroup()
@@ -292,7 +370,8 @@ public class JFPantalla extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTPMostarResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)))
                 .addContainerGap())
         );
 
@@ -338,7 +417,7 @@ public class JFPantalla extends javax.swing.JFrame {
                 }
                 if (jCBFuerzaBruta.isSelected()) {
                     //Si se desea buscar por algoritmo de Fuerza bruta
-                    jTAResultados.setText(jTAResultados.getText() + "Algoritmo Fuerza Bruta\n");
+                    jTAFuerzaBruta.setText(jTAFuerzaBruta.getText() + "Algoritmo Fuerza Bruta\n");
                     long tiempoTotal = 0;
                     for (String patron : patrones) {
                         //Realiza la busqueda de cada patron
@@ -351,14 +430,15 @@ public class JFPantalla extends javax.swing.JFrame {
                             resultadosBF += AlgoritmoMatch.bruteForceManyMatches(linea, patron, numeroLinea);
                             tiempoTotal += System.nanoTime() - tiempoInicial;
                         }
+                        
                         //Separa los resultados en lineas separadas
                         String coincidencias[] = resultadosBF.split("\n");
                         int numeroCoincidencia = 0;
-                        jTAResultados.setText(jTAResultados.getText() + "Patron: " + patron + "\n");
+                        jTAFuerzaBruta.setText(jTAFuerzaBruta.getText() + "Patron: " + patron + "\n");
                         for (String coincidencia : coincidencias) {
                             //Imprime los resultados de la manera correcta
                             numeroCoincidencia++;
-                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
+                            jTAFuerzaBruta.setText(jTAFuerzaBruta.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
                     //Muestra el tiempo total de la busqueda
@@ -366,7 +446,7 @@ public class JFPantalla extends javax.swing.JFrame {
                 }
                 if (jCBKMP.isSelected()) {
                     //Si se busca por KMP
-                    jTAResultados.setText(jTAResultados.getText() + "Algoritmo KMP\n");
+                    jTA_KMP.setText(jTA_KMP.getText() + "Algoritmo KMP\n");
                     long tiempoTotal = 0;
                     for (String patron : patrones) {
                         //Se realiza la busqueda por patron
@@ -382,11 +462,11 @@ public class JFPantalla extends javax.swing.JFrame {
                         //Separa los resultados en lineas separadas
                         String coincidencias[] = resultadosKMP.split("\n");
                         int numeroCoincidencia = 0;
-                        jTAResultados.setText(jTAResultados.getText() + "Patron: " + patron + "\n");
+                        jTA_KMP.setText(jTA_KMP.getText() + "Patron: " + patron + "\n");
                         for (String coincidencia : coincidencias) {
                             //Muestra los resultados en el formato deseado
                             numeroCoincidencia++;
-                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
+                            jTA_KMP.setText(jTA_KMP.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
                     //Muestra el tiempo total de la busqueda
@@ -394,7 +474,7 @@ public class JFPantalla extends javax.swing.JFrame {
                 }
                 if (jCBBoyerMoore.isSelected()) {
                     //Si se selecciona el algoritmo BoyerMoore
-                    jTAResultados.setText(jTAResultados.getText() + "Algoritmo Boyer Moore\n");
+                    jTABoyerMoore.setText(jTABoyerMoore.getText() + "Algoritmo Boyer Moore\n");
                     long tiempoTotal = 0;
                     for (String patron : patrones) {
                         //Realiza las busquedas de todos los patrones
@@ -409,11 +489,11 @@ public class JFPantalla extends javax.swing.JFrame {
                         }
                         String coincidencias[] = resultadosBM.split("\n");
                         int numeroCoincidencia = 0;
-                        jTAResultados.setText(jTAResultados.getText() + "Patron: " + patron + "\n");
+                        jTABoyerMoore.setText(jTABoyerMoore.getText() + "Patron: " + patron + "\n");
                         for (String coincidencia : coincidencias) {
                             //Muestra los resultados en el formato deseado
                             numeroCoincidencia++;
-                            jTAResultados.setText(jTAResultados.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
+                            jTABoyerMoore.setText(jTABoyerMoore.getText() + "Coincidencia " + numeroCoincidencia + coincidencia + "\n");
                         }
                     }
                     //Muestra el tiempo total de la busqueda
@@ -429,12 +509,14 @@ public class JFPantalla extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             //Error
-            JOptionPane.showMessageDialog(rootPane, "A ocurrido un error, cargue nuevamente los datos.");
+            JOptionPane.showMessageDialog(rootPane, "A ocurrido un error, cargue nuevamente los datos o intente con otro archivo.");
         }
     }//GEN-LAST:event_jBBuscarActionPerformed
     //Limpia los text areas de los resultados
     private void limpiarTextArea() {
-        jTAResultados.setText(null);
+        jTAFuerzaBruta.setText(null);
+        jTABoyerMoore.setText(null);
+        jTA_KMP.setText(null);
         jTAResumenResultados.setText(null);
     }
 
@@ -489,16 +571,24 @@ public class JFPantalla extends javax.swing.JFrame {
     private javax.swing.JPanel jPIngresarTexto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTextArea jTAArchivo;
+    private javax.swing.JTextArea jTABoyerMoore;
+    private javax.swing.JTextArea jTAFuerzaBruta;
     private javax.swing.JTextArea jTAIngresarTexto;
     private javax.swing.JTextArea jTAPatronesABuscar;
-    private javax.swing.JTextArea jTAResultados;
     private javax.swing.JTextArea jTAResumenResultados;
+    private javax.swing.JTextArea jTA_KMP;
     private javax.swing.JTabbedPane jTPIngresar;
+    private javax.swing.JTabbedPane jTPMostarResultados;
     // End of variables declaration//GEN-END:variables
 }
